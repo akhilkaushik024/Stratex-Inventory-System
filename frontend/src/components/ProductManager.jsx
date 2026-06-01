@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Plus, Edit2, Trash2, Search, Package, Star, ShoppingCart } from 'lucide-react';
 
-export default function ProductManager({ products, onCreate, onUpdate, onDelete }) {
-  const [searchTerm, setSearchTerm] = useState('');
+export default function ProductManager({ products, onCreate, onUpdate, onDelete, searchTerm }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   
@@ -84,22 +83,7 @@ export default function ProductManager({ products, onCreate, onUpdate, onDelete 
         <span style={{ color: 'var(--accent-warning)', fontWeight: 'bold' }}>"{searchTerm || 'All Products'}"</span>
       </div>
 
-      {/* Search Bar */}
-      <div className="card" style={{ padding: '1rem', marginBottom: '1.5rem' }}>
-        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-          <div style={{ position: 'relative', flex: 1 }}>
-            <Search size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-            <input
-              type="text"
-              placeholder="Search catalog by product name or SKU..."
-              className="input-field"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              style={{ paddingLeft: '2.5rem' }}
-            />
-          </div>
-        </div>
-      </div>
+
 
       {/* Products Grid */}
       {filteredProducts.length === 0 ? (

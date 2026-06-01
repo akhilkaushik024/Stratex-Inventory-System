@@ -13,6 +13,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('products'); // Default to products for e-commerce feel
   const [loading, setLoading] = useState(false);
   const [toasts, setToasts] = useState([]);
+  const [globalSearch, setGlobalSearch] = useState('');
 
   // Application Data States
   const [products, setProducts] = useState([]);
@@ -255,7 +256,12 @@ export default function App() {
   return (
     <div className="app-container">
       {/* Top Navbar Header */}
-      <Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
+      <Navigation 
+        activeTab={activeTab} 
+        setActiveTab={setActiveTab} 
+        globalSearch={globalSearch}
+        setGlobalSearch={setGlobalSearch}
+      />
 
       {/* Main Panel Viewport */}
       <main className="main-content">
@@ -288,6 +294,7 @@ export default function App() {
             onCreate={handleCreateProduct}
             onUpdate={handleUpdateProduct}
             onDelete={handleDeleteProduct}
+            searchTerm={globalSearch}
           />
         )}
 
@@ -296,6 +303,7 @@ export default function App() {
             customers={customers}
             onCreate={handleCreateCustomer}
             onDelete={handleDeleteCustomer}
+            searchTerm={globalSearch}
           />
         )}
 
@@ -306,6 +314,7 @@ export default function App() {
             products={products}
             onCreate={handleCreateOrder}
             onDelete={handleDeleteOrder}
+            searchTerm={globalSearch}
           />
         )}
       </main>

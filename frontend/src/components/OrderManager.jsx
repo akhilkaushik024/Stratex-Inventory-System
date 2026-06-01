@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Plus, Trash2, Search, X, ShoppingCart, Calendar, User, FileText, ArrowRight } from 'lucide-react';
 
-export default function OrderManager({ orders, customers, products, onCreate, onDelete }) {
-  const [searchTerm, setSearchTerm] = useState('');
+export default function OrderManager({ orders, customers, products, onCreate, onDelete, searchTerm }) {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
 
@@ -108,22 +107,7 @@ export default function OrderManager({ orders, customers, products, onCreate, on
         </button>
       </div>
 
-      {/* Search orders */}
-      <div className="card" style={{ padding: '1.25rem 1.5rem', marginBottom: '1.5rem' }}>
-        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-          <div style={{ position: 'relative', flex: 1 }}>
-            <Search size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-            <input
-              type="text"
-              placeholder="Search orders by customer name or Order ID..."
-              className="input-field"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              style={{ paddingLeft: '2.5rem' }}
-            />
-          </div>
-        </div>
-      </div>
+
 
       {/* Orders Directory Card */}
       <div className="card">

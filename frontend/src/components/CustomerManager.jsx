@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Plus, Trash2, Search, X, Users, Mail, Phone } from 'lucide-react';
 
-export default function CustomerManager({ customers, onCreate, onDelete }) {
-  const [searchTerm, setSearchTerm] = useState('');
+export default function CustomerManager({ customers, onCreate, onDelete, searchTerm }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Form States
@@ -57,22 +56,7 @@ export default function CustomerManager({ customers, onCreate, onDelete }) {
         </button>
       </div>
 
-      {/* Search & Filters */}
-      <div className="card" style={{ padding: '1.25rem 1.5rem', marginBottom: '1.5rem' }}>
-        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-          <div style={{ position: 'relative', flex: 1 }}>
-            <Search size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-            <input
-              type="text"
-              placeholder="Search customers by name, email or phone number..."
-              className="input-field"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              style={{ paddingLeft: '2.5rem' }}
-            />
-          </div>
-        </div>
-      </div>
+
 
       {/* Customers Table Card */}
       <div className="card">
