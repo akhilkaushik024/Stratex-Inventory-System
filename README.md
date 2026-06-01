@@ -82,7 +82,7 @@ Follow these simple steps to run the complete containerized stack on your local 
    ```
 
 4. Once the setup completes, the following services will be active:
-   * **React Frontend**: Access at [http://localhost](http://localhost) (mapped on port 80).
+   * **React Frontend**: Access at [http://localhost:3000](http://localhost:3000) (mapped on port 3000).
    * **FastAPI Backend REST API**: Access at [http://localhost:8000](http://localhost:8000).
    * **Interactive Swagger UI Documentation**: Review and test endpoints directly at [http://localhost:8000/docs](http://localhost:8000/docs).
    * **PostgreSQL Database**: Port `5432` exposed locally for manual verification.
