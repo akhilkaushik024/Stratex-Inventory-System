@@ -167,7 +167,7 @@ Below is the completed deliverable metadata sheet for your submission:
 
 | Deliverable Requirement | Submission Details (Replace placeholders) |
 |---|---|
-| **GitHub Repository Link** | `https://github.com/YOUR_USERNAME/YOUR_REPOSITORY` |
+| **GitHub Repository Link** | `https://github.com/akhilkaushik024/Stratex-Inventory-System` |
 | **Docker Hub Backend Image** | `YOUR_DOCKERHUB_USERNAME/inventory-backend:latest` |
 | **Live Frontend URL (Vercel)** | `https://YOUR-FRONTEND-URL.vercel.app` |
 | **Live Backend API URL (Render)** | `https://YOUR-BACKEND-URL.onrender.com` |
