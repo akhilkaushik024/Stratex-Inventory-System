@@ -37,11 +37,7 @@ export default function CustomerManager({ customers, onCreate, onDelete, searchT
     setIsModalOpen(false);
   };
 
-  const filteredCustomers = customers.filter(c =>
-    c.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    c.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    c.phone_number.includes(searchTerm)
-  );
+  const filteredCustomers = customers;
 
   return (
     <div>

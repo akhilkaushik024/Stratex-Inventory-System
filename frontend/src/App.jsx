@@ -54,6 +54,13 @@ export default function App() {
     loadAllData();
   }, []);
 
+  // Redirect to products tab immediately when user starts typing a product search query
+  useEffect(() => {
+    if (globalSearch.trim() !== '') {
+      setActiveTab('products');
+    }
+  }, [globalSearch]);
+
   const fetchProducts = async () => {
     try {
       const res = await fetch(`${API_BASE}/api/products`);

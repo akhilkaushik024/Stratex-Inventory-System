@@ -14,13 +14,15 @@ export default function Navigation({ activeTab, setActiveTab, globalSearch, setG
 
 
         <div className="nav-search-bar">
-          <select className="nav-search-select" onChange={(e) => {
-            if(e.target.value !== 'all') setActiveTab(e.target.value);
-          }} value={activeTab === 'products' || activeTab === 'customers' || activeTab === 'orders' ? activeTab : 'all'}>
+          <select 
+            className="nav-search-select" 
+            onChange={(e) => {
+              if (e.target.value === 'products') setActiveTab('products');
+            }} 
+            value={activeTab === 'products' ? 'products' : 'all'}
+          >
             <option value="all">All</option>
             <option value="products">Products</option>
-            <option value="customers">Customers</option>
-            <option value="orders">Orders</option>
           </select>
           <input 
             type="text" 

@@ -88,11 +88,7 @@ export default function OrderManager({ orders, customers, products, onCreate, on
     setIsCreateModalOpen(false);
   };
 
-  const filteredOrders = orders.filter(o => {
-    const customerName = o.customer?.full_name || '';
-    const orderIdString = o.id.toString();
-    return customerName.toLowerCase().includes(searchTerm.toLowerCase()) || orderIdString.includes(searchTerm);
-  });
+  const filteredOrders = orders;
 
   return (
     <div>
