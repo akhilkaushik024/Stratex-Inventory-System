@@ -165,12 +165,12 @@ Vercel is the ultimate hosting platform for static and React applications.
 
 Below is the completed deliverable metadata sheet for your submission:
 
-| Deliverable Requirement | Submission Details (Replace placeholders) |
+| Deliverable Requirement | Submission Details |
 |---|---|
 | **GitHub Repository Link** | `https://github.com/akhilkaushik024/Stratex-Inventory-System` |
-| **Docker Hub Backend Image** | `YOUR_DOCKERHUB_USERNAME/inventory-backend:latest` |
-| **Live Frontend URL (Vercel)** | `https://YOUR-FRONTEND-URL.vercel.app` |
-| **Live Backend API URL (Render)** | `https://YOUR-BACKEND-URL.onrender.com` |
+| **Docker Hub Backend Image** | `https://hub.docker.com/r/akhilkaushik/inventory-backend` |
+| **Live Frontend URL (Vercel)** | `https://stratex-inventory-system.vercel.app` |
+| **Live Backend API URL (Render)** | `https://inventory-backend-pic1.onrender.com` |
 
 ---
 
