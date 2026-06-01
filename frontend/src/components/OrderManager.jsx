@@ -167,7 +167,7 @@ export default function OrderManager({ orders, customers, products, onCreate, on
                       </div>
                     </td>
                     <td style={{ fontWeight: 800, color: 'var(--accent-success)' }}>
-                      ${order.total_amount.toFixed(2)}
+                      ₹{order.total_amount.toFixed(2)}
                     </td>
                     <td>
                       <span className="badge badge-success" style={{ fontWeight: 600 }}>
@@ -257,9 +257,9 @@ export default function OrderManager({ orders, customers, products, onCreate, on
                           <small style={{ color: 'var(--text-muted)', fontFamily: 'monospace' }}>SKU: {item.product?.sku}</small>
                         </td>
                         <td>{item.quantity} units</td>
-                        <td>${item.unit_price.toFixed(2)}</td>
+                        <td>₹{item.unit_price.toFixed(2)}</td>
                         <td style={{ textAlign: 'right', fontWeight: 600 }}>
-                          ${(item.quantity * item.unit_price).toFixed(2)}
+                          ₹{(item.quantity * item.unit_price).toFixed(2)}
                         </td>
                       </tr>
                     ))}
@@ -270,15 +270,15 @@ export default function OrderManager({ orders, customers, products, onCreate, on
               <div className="invoice-total-section">
                 <div style={{ display: 'flex', justifyContent: 'space-between', width: '220px', paddingBottom: '0.5rem', color: 'var(--text-secondary)' }}>
                   <span>Subtotal:</span>
-                  <span>${selectedOrder.total_amount.toFixed(2)}</span>
+                  <span>₹{selectedOrder.total_amount.toFixed(2)}</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', width: '220px', paddingBottom: '0.5rem', color: 'var(--text-secondary)' }}>
                   <span>Taxes & Shipping:</span>
-                  <span>$0.00</span>
+                  <span>₹0.00</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', width: '220px', paddingTop: '0.5rem', borderTop: '1px solid var(--glass-border)', fontSize: '1.25rem', fontWeight: 800, color: 'var(--accent-success)' }}>
                   <span>Total Due:</span>
-                  <span>${selectedOrder.total_amount.toFixed(2)}</span>
+                  <span>₹{selectedOrder.total_amount.toFixed(2)}</span>
                 </div>
               </div>
 
@@ -349,7 +349,7 @@ export default function OrderManager({ orders, customers, products, onCreate, on
                         <option value="">-- Choose Product --</option>
                         {products.map(p => (
                           <option key={p.id} value={p.id} disabled={p.quantity_in_stock === 0}>
-                            {p.name} - ${p.price.toFixed(2)} ({p.quantity_in_stock} in stock)
+                            {p.name} - ₹{p.price.toFixed(2)} ({p.quantity_in_stock} in stock)
                           </option>
                         ))}
                       </select>
@@ -380,7 +380,7 @@ export default function OrderManager({ orders, customers, products, onCreate, on
 
                       {/* Line subtotal */}
                       <div style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--text-primary)', textAlign: 'right' }}>
-                        ${selectedProduct ? (selectedProduct.price * (parseInt(item.quantity) || 0)).toFixed(2) : '0.00'}
+                        ₹{selectedProduct ? (selectedProduct.price * (parseInt(item.quantity) || 0)).toFixed(2) : '0.00'}
                       </div>
 
                       {/* Remove row */}
@@ -412,7 +412,7 @@ export default function OrderManager({ orders, customers, products, onCreate, on
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                   <span style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>Checkout Total:</span>
                   <span style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--accent-success)' }}>
-                    ${calculateCartTotal().toFixed(2)}
+                    ₹{calculateCartTotal().toFixed(2)}
                   </span>
                 </div>
               </div>

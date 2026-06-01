@@ -133,7 +133,7 @@ export default function ProductManager({ products, onCreate, onUpdate, onDelete 
                         <span className="badge badge-info">{product.sku}</span>
                       </td>
                       <td style={{ fontWeight: 600 }}>
-                        ${product.price.toFixed(2)}
+                        ₹{product.price.toFixed(2)}
                       </td>
                       <td style={{ fontWeight: 500 }}>
                         {product.quantity_in_stock} units
@@ -221,7 +221,7 @@ export default function ProductManager({ products, onCreate, onUpdate, onDelete 
 
               <div className="form-grid" style={{ marginBottom: '2rem' }}>
                 <div className="form-group">
-                  <label>Unit Price ($)</label>
+                  <label>Unit Price (₹)</label>
                   <input
                     type="number"
                     step="0.01"

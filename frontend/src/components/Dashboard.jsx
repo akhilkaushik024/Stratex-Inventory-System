@@ -108,7 +108,7 @@ export default function Dashboard({ stats, onRestock, loading, refreshStats }) {
                           {product.quantity_in_stock} left
                         </span>
                       </td>
-                      <td style={{ fontWeight: 600 }}>${product.price.toFixed(2)}</td>
+                      <td style={{ fontWeight: 600 }}>₹{product.price.toFixed(2)}</td>
                       <td style={{ textAlign: 'right' }}>
                         <div style={{ display: 'inline-flex', gap: '0.5rem', alignItems: 'center' }}>
                           <input
