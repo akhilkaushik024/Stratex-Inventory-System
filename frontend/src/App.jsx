@@ -10,7 +10,7 @@ import Toast from './components/Toast';
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('dashboard');
+  const [activeTab, setActiveTab] = useState('products'); // Default to products for e-commerce feel
   const [loading, setLoading] = useState(false);
   const [toasts, setToasts] = useState([]);
 
@@ -254,7 +254,7 @@ export default function App() {
 
   return (
     <div className="app-container">
-      {/* Reusable Sidebar Drawer */}
+      {/* Top Navbar Header */}
       <Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {/* Main Panel Viewport */}
@@ -266,7 +266,7 @@ export default function App() {
             left: 0,
             width: '100%',
             height: '3px',
-            background: 'linear-gradient(90deg, var(--accent-primary) 0%, var(--accent-secondary) 50%, var(--accent-success) 100%)',
+            background: 'var(--accent-primary)',
             zIndex: 9999,
             animation: 'fadeIn 0.5s infinite alternate'
           }} />
