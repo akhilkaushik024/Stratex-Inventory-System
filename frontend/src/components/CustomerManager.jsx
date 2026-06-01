@@ -48,7 +48,13 @@ export default function CustomerManager({ customers, onCreate, onDelete, searchT
       <div className="top-header">
         <div className="header-title">
           <h1>Customer Directory</h1>
-          <p>Register and manage customer profiles and account records.</p>
+          {searchTerm ? (
+            <p className="search-status">
+              Showing {filteredCustomers.length} of {customers.length} customers matching <span className="highlight-term">&ldquo;{searchTerm}&rdquo;</span>
+            </p>
+          ) : (
+            <p>Register and manage customer profiles and account records.</p>
+          )}
         </div>
         <button className="btn btn-primary" onClick={openCreateModal}>
           <Plus size={18} />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Edit2, Trash2, Search, Package, Star, ShoppingCart } from 'lucide-react';
+import { Plus, Edit2, Trash2, Search, Package, Star, ShoppingCart, X } from 'lucide-react';
 
 export default function ProductManager({ products, onCreate, onUpdate, onDelete, searchTerm }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -70,17 +70,18 @@ export default function ProductManager({ products, onCreate, onUpdate, onDelete,
       <div className="top-header">
         <div className="header-title">
           <h1>Product Catalog</h1>
-          <p>Manage your storefront inventory, pricing, and details.</p>
+          {searchTerm ? (
+            <p className="search-status">
+              Showing {filteredProducts.length} of {products.length} products matching <span className="highlight-term">&ldquo;{searchTerm}&rdquo;</span>
+            </p>
+          ) : (
+            <p>Manage your storefront inventory, pricing, and details.</p>
+          )}
         </div>
         <button className="btn btn-primary" onClick={openCreateModal}>
           <Plus size={18} />
           Add New Product
         </button>
-      </div>
-
-      <div style={{ marginBottom: '20px' }}>
-        <strong>1-{filteredProducts.length} of over {products.length} results for </strong> 
-        <span style={{ color: 'var(--accent-warning)', fontWeight: 'bold' }}>"{searchTerm || 'All Products'}"</span>
       </div>
 
 

@@ -99,7 +99,13 @@ export default function OrderManager({ orders, customers, products, onCreate, on
       <div className="top-header">
         <div className="header-title">
           <h1>Order Fulfillment</h1>
-          <p>Process, list, and examine incoming client transactions.</p>
+          {searchTerm ? (
+            <p className="search-status">
+              Showing {filteredOrders.length} of {orders.length} orders matching <span className="highlight-term">&ldquo;{searchTerm}&rdquo;</span>
+            </p>
+          ) : (
+            <p>Process, list, and examine incoming client transactions.</p>
+          )}
         </div>
         <button className="btn btn-primary" onClick={openCreateModal}>
           <Plus size={18} />

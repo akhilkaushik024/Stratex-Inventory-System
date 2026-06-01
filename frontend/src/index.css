@@ -56,6 +56,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
   overflow-x: hidden;
+  cursor: default;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -66,6 +70,7 @@ h1, h2, h3, h4, h5, h6 {
 a {
   color: var(--accent-secondary);
   text-decoration: none;
+  cursor: pointer;
 }
 a:hover {
   text-decoration: underline;
@@ -77,6 +82,28 @@ input, select, textarea, button {
   font-size: inherit;
   color: inherit;
   outline: none;
+}
+
+input[type="text"], input[type="number"], input[type="email"], input[type="search"], textarea {
+  cursor: text;
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+}
+
+/* Allow text selection in tables, product descriptions and modals for copying SKUs, details, etc. */
+.custom-table td,
+.product-title,
+.product-price,
+.product-stock,
+.stat-details,
+.card-header,
+.modal-content p,
+.modal-content h2,
+.modal-content label {
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
 }
 
 /* Scrollbars */
@@ -128,10 +155,16 @@ input, select, textarea, button {
   color: var(--text-primary);
 }
 
-.header-title p {
+.header-title p,
+.header-title .search-status {
   color: var(--text-secondary);
   font-size: 0.95rem;
   margin-top: 0.25rem;
+}
+
+.header-title .search-status .highlight-term {
+  color: var(--accent-warning);
+  font-weight: 700;
 }
 
 /* ==========================================================================
