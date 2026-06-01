@@ -26,7 +26,7 @@ export default function Dashboard({ stats, onRestock, loading, refreshStats }) {
 
       {/* Stats Counter Grid */}
       <div className="stats-grid">
-        <div className="stat-card">
+        <div className="stat-card products-card">
           <div className="stat-icon products">
             <Package size={24} />
           </div>
@@ -36,7 +36,7 @@ export default function Dashboard({ stats, onRestock, loading, refreshStats }) {
           </div>
         </div>
 
-        <div className="stat-card">
+        <div className="stat-card customers-card">
           <div className="stat-icon customers">
             <Users size={24} />
           </div>
@@ -46,7 +46,7 @@ export default function Dashboard({ stats, onRestock, loading, refreshStats }) {
           </div>
         </div>
 
-        <div className="stat-card">
+        <div className="stat-card orders-card">
           <div className="stat-icon orders">
             <ShoppingCart size={24} />
           </div>
@@ -56,7 +56,7 @@ export default function Dashboard({ stats, onRestock, loading, refreshStats }) {
           </div>
         </div>
 
-        <div className="stat-card">
+        <div className="stat-card low-stock-card">
           <div className="stat-icon low-stock">
             <AlertTriangle size={24} />
           </div>

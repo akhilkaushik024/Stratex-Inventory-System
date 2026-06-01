@@ -1,4 +1,3 @@
-import React from 'react';
 import { Search } from 'lucide-react';
 
 export default function Navigation({ activeTab, setActiveTab, globalSearch, setGlobalSearch }) {
@@ -16,10 +15,9 @@ export default function Navigation({ activeTab, setActiveTab, globalSearch, setG
 
         <div className="nav-search-bar">
           <select className="nav-search-select" onChange={(e) => {
-            // Optional: could change activeTab based on select
-            if(e.target.value !== 'All') setActiveTab(e.target.value.toLowerCase());
-          }}>
-            <option value="All">All Categories</option>
+            if(e.target.value !== 'all') setActiveTab(e.target.value);
+          }} value={activeTab === 'products' || activeTab === 'customers' || activeTab === 'orders' ? activeTab : 'all'}>
+            <option value="all">All</option>
             <option value="products">Products</option>
             <option value="customers">Customers</option>
             <option value="orders">Orders</option>
@@ -27,7 +25,7 @@ export default function Navigation({ activeTab, setActiveTab, globalSearch, setG
           <input 
             type="text" 
             className="nav-search-input" 
-            placeholder="Search catalog, customers, or orders..." 
+            placeholder="Search products, customers or orders..."
             value={globalSearch}
             onChange={(e) => setGlobalSearch(e.target.value)}
           />
