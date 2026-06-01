@@ -12,13 +12,7 @@ export default function Navigation({ activeTab, setActiveTab }) {
           </div>
         </div>
 
-        <div className="nav-item" style={{ flexDirection: 'row', alignItems: 'center', gap: '5px' }}>
-          <MapPin size={18} />
-          <div>
-            <div className="nav-item-line1">Delivering to Inventory</div>
-            <div className="nav-item-line2">Update location</div>
-          </div>
-        </div>
+
 
         <div className="nav-search-bar">
           <select className="nav-search-select">
@@ -57,27 +51,19 @@ export default function Navigation({ activeTab, setActiveTab }) {
             <div className="nav-item-line2">& Orders</div>
           </div>
 
-          <div 
-            className={`nav-item ${activeTab === 'orders' ? 'active' : ''}`}
-            onClick={() => setActiveTab('orders')}
-            style={{ flexDirection: 'row', alignItems: 'flex-end', gap: '5px' }}
-          >
-            <ShoppingCart size={32} />
-            <span style={{ fontWeight: 'bold' }}>Cart</span>
-          </div>
+
         </div>
       </div>
 
       {/* Sub Nav Bar */}
       <div className="navbar-sub">
         <div className="sub-nav-item" style={{ display: 'flex', gap: '5px', alignItems: 'center', fontWeight: 'bold' }}>
-          <Menu size={16} /> All
+          <Menu size={16} /> Menu
         </div>
-        <div className={`sub-nav-item ${activeTab === 'products' ? 'active' : ''}`} onClick={() => setActiveTab('products')}>Products Catalog</div>
-        <div className={`sub-nav-item ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => setActiveTab('dashboard')}>Today's Deals (Dashboard)</div>
-        <div className={`sub-nav-item ${activeTab === 'customers' ? 'active' : ''}`} onClick={() => setActiveTab('customers')}>Customer Service</div>
-        <div className="sub-nav-item">Sell</div>
-        <div className="sub-nav-item">Best Sellers</div>
+        <div className={`sub-nav-item ${activeTab === 'products' ? 'active' : ''}`} onClick={() => setActiveTab('products')}>Products</div>
+        <div className={`sub-nav-item ${activeTab === 'customers' ? 'active' : ''}`} onClick={() => setActiveTab('customers')}>Customers</div>
+        <div className={`sub-nav-item ${activeTab === 'orders' ? 'active' : ''}`} onClick={() => setActiveTab('orders')}>Orders</div>
+        <div className={`sub-nav-item ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => setActiveTab('dashboard')}>Analytics Dashboard</div>
       </div>
     </header>
   );

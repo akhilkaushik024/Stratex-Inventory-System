@@ -136,17 +136,7 @@ export default function ProductManager({ products, onCreate, onUpdate, onDelete 
                 <div className="product-details">
                   <div className="product-title">{product.name}</div>
                   
-                  {/* Fake ratings for e-commerce feel */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '2px', color: '#ffa41c', marginBottom: '8px' }}>
-                    <Star size={14} fill="#ffa41c" />
-                    <Star size={14} fill="#ffa41c" />
-                    <Star size={14} fill="#ffa41c" />
-                    <Star size={14} fill="#ffa41c" />
-                    <Star size={14} />
-                    <span style={{ color: 'var(--accent-secondary)', fontSize: '0.8rem', marginLeft: '5px' }}>
-                      {Math.floor(Math.random() * 500) + 10}
-                    </span>
-                  </div>
+
 
                   <div className="product-price">
                     <span className="product-price-symbol">₹</span>
@@ -167,11 +157,7 @@ export default function ProductManager({ products, onCreate, onUpdate, onDelete 
                     SKU: {product.sku}
                   </div>
 
-                  <div style={{ marginTop: 'auto' }}>
-                    <button className="btn btn-primary" style={{ width: '100%' }} disabled={isOutOfStock}>
-                      <ShoppingCart size={16} /> Add to Cart
-                    </button>
-                  </div>
+
                 </div>
               </div>
             );

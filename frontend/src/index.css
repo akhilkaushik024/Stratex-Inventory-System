@@ -2,25 +2,24 @@
    DESIGN SYSTEM - SYSTEM VARIABLES (AMAZON-STYLE LIGHT THEME)
    ========================================================================== */
 :root {
-  /* Colors */
-  --bg-primary: #eaeded; /* Amazon background gray */
+  --bg-primary: #f8fafc; /* Slate 50 */
   --bg-secondary: #ffffff; /* White cards */
-  --bg-tertiary: #f3f3f3; /* Light gray for hovers */
+  --bg-tertiary: #f1f5f9; /* Slate 100 */
   
-  --nav-bg: #131921; /* Amazon dark blue top nav */
-  --nav-sub-bg: #232f3e; /* Amazon lighter blue sub nav */
+  --nav-bg: #4f46e5; /* Indigo 600 */
+  --nav-sub-bg: #4338ca; /* Indigo 700 */
 
-  --text-primary: #0f1111; /* Amazon main text */
-  --text-secondary: #565959; /* Amazon secondary text */
-  --text-muted: #888888;
+  --text-primary: #0f172a; /* Slate 900 */
+  --text-secondary: #475569; /* Slate 600 */
+  --text-muted: #94a3b8; /* Slate 400 */
   --text-nav: #ffffff;
 
-  --accent-primary: #f3a847; /* Amazon Orange main */
-  --accent-primary-hover: #f0c14b;
-  --accent-secondary: #007185; /* Amazon link teal */
-  --accent-success: #007600; /* Amazon green */
-  --accent-warning: #c45500; /* Amazon dark orange */
-  --accent-danger: #B12704; /* Amazon red */
+  --accent-primary: #0d9488; /* Teal 600 */
+  --accent-primary-hover: #0f766e; /* Teal 700 */
+  --accent-secondary: #2563eb; /* Blue 600 */
+  --accent-success: #16a34a; /* Green 600 */
+  --accent-warning: #ea580c; /* Orange 600 */
+  --accent-danger: #dc2626; /* Red 600 */
 
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 2px 5px 0 rgba(213, 217, 217, 0.5); /* Amazon subtle shadow */
@@ -489,13 +488,13 @@ input, select, textarea, button {
 }
 
 .btn-primary {
-  background: #ffd814;
-  border-color: #fcd200;
-  color: #111;
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: #ffffff;
 }
 .btn-primary:hover {
-  background: #f7ca00;
-  border-color: #f2c200;
+  background: var(--accent-primary-hover);
+  border-color: var(--accent-primary-hover);
 }
 
 .btn-secondary {
