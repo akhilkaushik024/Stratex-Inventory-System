@@ -79,7 +79,7 @@ export default function Dashboard({ stats, onRestock, loading, refreshStats }) {
           </div>
 
           {stats?.low_stock_products?.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '3rem 1.5rem', color: var => 'var(--text-secondary)' }}>
+            <div style={{ textAlign: 'center', padding: '3rem 1.5rem', color: 'var(--text-secondary)' }}>
               <Package size={48} style={{ opacity: 0.25, marginBottom: '1rem' }} />
               <p style={{ fontWeight: 500, fontSize: '1.05rem' }}>All product inventory levels are optimal!</p>
               <p style={{ fontSize: '0.85rem', opacity: 0.6, marginTop: '0.25rem' }}>No products are currently low in stock.</p>
