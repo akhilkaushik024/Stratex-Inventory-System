@@ -99,8 +99,46 @@ export default function ProductManager({ products, onCreate, onUpdate, onDelete,
         <div className="products-grid">
           {filteredProducts.map((product) => {
             const isOutOfStock = product.quantity_in_stock === 0;
-            // Generate a deterministic placeholder image based on product ID
-            const imageUrl = `https://picsum.photos/seed/${product.id}/400/300`;
+            
+            // Extract a clean, highly matched search keyword for product images
+            const nameLower = product.name.toLowerCase();
+            let searchKeyword = '';
+            
+            if (nameLower.includes('keyboard')) {
+              searchKeyword = 'keyboard';
+            } else if (nameLower.includes('mouse')) {
+              searchKeyword = 'computermouse';
+            } else if (nameLower.includes('laptop') || nameLower.includes('macbook') || nameLower.includes('computer')) {
+              searchKeyword = 'laptop';
+            } else if (nameLower.includes('headphone') || nameLower.includes('earphone') || nameLower.includes('audio') || nameLower.includes('mic')) {
+              searchKeyword = 'headphones';
+            } else if (nameLower.includes('phone') || nameLower.includes('mobile') || nameLower.includes('iphone') || nameLower.includes('android')) {
+              searchKeyword = 'smartphone';
+            } else if (nameLower.includes('monitor') || nameLower.includes('screen') || nameLower.includes('display') || nameLower.includes('tv')) {
+              searchKeyword = 'monitor';
+            } else if (nameLower.includes('watch') || nameLower.includes('clock')) {
+              searchKeyword = 'smartwatch';
+            } else if (nameLower.includes('camera') || nameLower.includes('lens')) {
+              searchKeyword = 'camera';
+            } else if (nameLower.includes('chair') || nameLower.includes('desk') || nameLower.includes('table')) {
+              searchKeyword = 'officechair';
+            } else if (nameLower.includes('bag') || nameLower.includes('backpack') || nameLower.includes('luggage')) {
+              searchKeyword = 'backpack';
+            } else if (nameLower.includes('bottle') || nameLower.includes('flask') || nameLower.includes('cup') || nameLower.includes('mug')) {
+              searchKeyword = 'waterbottle';
+            } else {
+              // Fallback: use the first two alphanumeric words of the product name
+              searchKeyword = product.name
+                .replace(/[^a-zA-Z0-9\s]/g, '')
+                .trim()
+                .split(/\s+/)
+                .slice(0, 2)
+                .join(',')
+                .toLowerCase() || 'gadget';
+            }
+
+            // Generate deterministic matched image matching name & ID lock
+            const imageUrl = `https://loremflickr.com/400/300/${encodeURIComponent(searchKeyword)}?lock=${product.id}`;
 
             return (
               <div key={product.id} className="product-card">
