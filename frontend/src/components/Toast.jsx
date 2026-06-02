@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { CheckCircle, XCircle, Info, X } from 'lucide-react';
 
 export default function Toast({ toasts, removeToast }) {

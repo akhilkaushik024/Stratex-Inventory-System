@@ -333,6 +333,7 @@ export default function App() {
                 onUpdate={handleUpdateProduct}
                 onDelete={handleDeleteProduct}
                 searchTerm={globalSearch}
+                showToast={showToast}
               />
             )}
 
@@ -342,6 +343,7 @@ export default function App() {
                 onCreate={handleCreateCustomer}
                 onDelete={handleDeleteCustomer}
                 searchTerm={globalSearch}
+                showToast={showToast}
               />
             )}
 
@@ -353,6 +355,7 @@ export default function App() {
                 onCreate={handleCreateOrder}
                 onDelete={handleDeleteOrder}
                 searchTerm={globalSearch}
+                showToast={showToast}
               />
             )}
           </>

@@ -55,7 +55,7 @@ const formatOrderDateOnly = (dateString) => {
   });
 };
 
-export default function OrderManager({ orders, customers, products, onCreate, onDelete, searchTerm }) {
+export default function OrderManager({ orders, customers, products, onCreate, onDelete, searchTerm, showToast }) {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
 
@@ -96,7 +96,7 @@ export default function OrderManager({ orders, customers, products, onCreate, on
   const handleCheckout = (e) => {
     e.preventDefault();
     if (!customerId) {
-      alert("Please select a customer.");
+      showToast('Please select a customer.', 'error');
       return;
     }
 
@@ -107,12 +107,12 @@ export default function OrderManager({ orders, customers, products, onCreate, on
     for (let i = 0; i < cartItems.length; i++) {
       const item = cartItems[i];
       if (!item.product_id) {
-        alert("Please select a product for all rows.");
+        showToast('Please select a product for all rows.', 'error');
         return;
       }
       const qty = parseInt(item.quantity);
       if (isNaN(qty) || qty <= 0) {
-        alert("Quantities must be greater than zero.");
+        showToast('Quantities must be greater than zero.', 'error');
         return;
       }
 
@@ -125,7 +125,7 @@ export default function OrderManager({ orders, customers, products, onCreate, on
       const product = products.find(p => p.id === parseInt(pId));
       if (!product) continue;
       if (product.quantity_in_stock < qty) {
-        alert(`Insufficient stock for "${product.name}". Available stock: ${product.quantity_in_stock}, Requested: ${qty}`);
+        showToast(`Insufficient stock for "${product.name}". Available: ${product.quantity_in_stock}, Requested: ${qty}`, 'error');
         return;
       }
       itemsPayload.push({

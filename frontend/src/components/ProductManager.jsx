@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Plus, Edit2, Trash2, Search, Package, Star, ShoppingCart, X } from 'lucide-react';
 
-export default function ProductManager({ products, onCreate, onUpdate, onDelete, searchTerm }) {
+export default function ProductManager({ products, onCreate, onUpdate, onDelete, searchTerm, showToast }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   
@@ -37,11 +37,11 @@ export default function ProductManager({ products, onCreate, onUpdate, onDelete,
     const parsedStock = parseInt(stock);
 
     if (isNaN(parsedPrice) || parsedPrice < 0) {
-      alert("Price must be a positive number.");
+      showToast('Price must be a positive number.', 'error');
       return;
     }
     if (isNaN(parsedStock) || parsedStock < 0) {
-      alert("Stock quantity cannot be negative.");
+      showToast('Stock quantity cannot be negative.', 'error');
       return;
     }
 

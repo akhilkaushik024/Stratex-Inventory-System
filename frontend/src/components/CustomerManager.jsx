@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Plus, Trash2, Search, X, Users, Mail, Phone } from 'lucide-react';
 
-export default function CustomerManager({ customers, onCreate, onDelete, searchTerm }) {
+export default function CustomerManager({ customers, onCreate, onDelete, searchTerm, showToast }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Form States
@@ -16,20 +16,44 @@ export default function CustomerManager({ customers, onCreate, onDelete, searchT
     setIsModalOpen(true);
   };
 
+  // Only allow digits in the phone field, max 10
+  const handlePhoneChange = (e) => {
+    const digits = e.target.value.replace(/\D/g, '');
+    if (digits.length <= 10) {
+      setPhoneNumber(digits);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!fullName.trim() || !email.trim() || !phoneNumber.trim()) return;
 
-    // Simple email format check
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email.trim())) {
-      alert("Please enter a valid email address.");
+    // Phone must be exactly 10 digits
+    if (phoneNumber.length !== 10) {
+      showToast('Phone number must be exactly 10 digits.', 'error');
+      return;
+    }
+
+    // Email must end with .com
+    const emailLower = email.trim().toLowerCase();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.com$/;
+    if (!emailRegex.test(emailLower)) {
+      showToast('Only .com email addresses are accepted.', 'error');
+      return;
+    }
+
+    // Check for duplicate customer by email
+    const emailExists = customers.some(
+      (c) => c.email.toLowerCase() === emailLower
+    );
+    if (emailExists) {
+      showToast(`A customer with email "${emailLower}" is already registered.`, 'error');
       return;
     }
 
     const customerData = {
       full_name: fullName.trim(),
-      email: email.trim().toLowerCase(),
+      email: emailLower,
       phone_number: phoneNumber.trim()
     };
 
@@ -172,7 +196,7 @@ export default function CustomerManager({ customers, onCreate, onDelete, searchT
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <small style={{ color: 'var(--text-muted)' }}>Must be a unique email address.</small>
+                <small style={{ color: 'var(--text-muted)' }}>Must be a unique .com email address.</small>
               </div>
 
               <div className="form-group" style={{ marginBottom: '2rem' }}>
@@ -180,11 +204,18 @@ export default function CustomerManager({ customers, onCreate, onDelete, searchT
                 <input
                   type="tel"
                   required
-                  placeholder="+1 (555) 123-4567"
+                  placeholder="9876543210"
                   className="input-field"
                   value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  onChange={handlePhoneChange}
+                  maxLength={10}
+                  inputMode="numeric"
+                  pattern="\d{10}"
+                  title="Enter exactly 10 digits"
                 />
+                <small style={{ color: phoneNumber.length > 0 && phoneNumber.length < 10 ? 'var(--accent-danger)' : 'var(--text-muted)' }}>
+                  {phoneNumber.length}/10 digits {phoneNumber.length === 10 ? '✓' : '(exactly 10 required)'}
+                </small>
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
