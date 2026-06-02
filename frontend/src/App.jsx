@@ -61,6 +61,13 @@ export default function App() {
     }
   }, [globalSearch]);
 
+  // Clear search term when activeTab changes to anything other than products
+  useEffect(() => {
+    if (activeTab !== 'products') {
+      setGlobalSearch('');
+    }
+  }, [activeTab]);
+
   const fetchProducts = async () => {
     try {
       const res = await fetch(`${API_BASE}/api/products`);

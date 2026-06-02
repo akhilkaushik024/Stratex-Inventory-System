@@ -14,20 +14,10 @@ export default function Navigation({ activeTab, setActiveTab, globalSearch, setG
 
 
         <div className="nav-search-bar">
-          <select 
-            className="nav-search-select" 
-            onChange={(e) => {
-              if (e.target.value === 'products') setActiveTab('products');
-            }} 
-            value={activeTab === 'products' ? 'products' : 'all'}
-          >
-            <option value="all">All</option>
-            <option value="products">Products</option>
-          </select>
           <input 
             type="text" 
             className="nav-search-input" 
-            placeholder="Search products, customers or orders..."
+            placeholder="Search products..."
             value={globalSearch}
             onChange={(e) => setGlobalSearch(e.target.value)}
           />
