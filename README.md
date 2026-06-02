@@ -1,182 +1,243 @@
-# Stratex - Enterprise Inventory & Order Management System
+<p align="center">
+  <h1 align="center">Stratex — Inventory & Order Management System</h1>
+  <p align="center">
+    A production-grade, full-stack web application for managing products, customers, and orders — built with React, FastAPI, PostgreSQL, and Docker.
+  </p>
+</p>
 
-A state-of-the-art, fully containerized full-stack **Inventory & Order Management System** built for modern logistics operations. This repository contains the complete implementation designed, structured, and packaged to meet the rigorous standards of a production assessment.
+<p align="center">
+  <a href="https://stratex-inventory-system.vercel.app"><strong>🌐 Live Demo</strong></a> &nbsp;·&nbsp;
+  <a href="https://inventory-backend-pic1.onrender.com/docs"><strong>📖 API Docs</strong></a> &nbsp;·&nbsp;
+  <a href="https://hub.docker.com/r/akhilkaushik/inventory-backend"><strong>🐳 Docker Hub</strong></a>
+</p>
 
 ---
 
-## 🚀 Key Features
+## 📋 Submission Deliverables
 
-* **Product Catalog CRUD**: Detailed records including Name, SKU, Price, and Stock counts with non-negative constraints.
-* **Customer Directory**: Complete profiles (Name, unique Email, Phone) linked dynamically to order tracking.
-* **Dynamic Sales Orders Checkout**: Seamless cart billing supporting multi-product basket selections, unit price snapshots at checkout, automatic backend subtotaling, and real-time stock deductions.
-* **Smart Stock Integrity**: Transactional database controls preventing checkouts on insufficient stock, with safe stock replenishment upon order cancellation.
-* **Real-time KPI Dashboard**: Instant visualization of product quantities, customer registration numbers, total order volumes, and critical low-stock alerts.
-* **Containerized Orchestration**: Production-ready, optimized Docker containers for the Frontend, Backend, and Database configured to boot in harmony with PostgreSQL health checks.
+| Requirement | Link |
+|---|---|
+| **GitHub Repository** | [github.com/akhilkaushik024/Stratex-Inventory-System](https://github.com/akhilkaushik024/Stratex-Inventory-System) |
+| **Docker Hub Image** | [hub.docker.com/r/akhilkaushik/inventory-backend](https://hub.docker.com/r/akhilkaushik/inventory-backend) |
+| **Live Frontend (Vercel)** | [stratex-inventory-system.vercel.app](https://stratex-inventory-system.vercel.app) |
+| **Live Backend API (Render)** | [inventory-backend-pic1.onrender.com](https://inventory-backend-pic1.onrender.com) |
+| **Swagger API Documentation** | [inventory-backend-pic1.onrender.com/docs](https://inventory-backend-pic1.onrender.com/docs) |
+
+> **Note:** The backend is deployed on Render's free tier. After ~15 minutes of inactivity the server spins down. The first request triggers a cold start that takes approximately 30–40 seconds — subsequent requests are near-instant.
 
 ---
 
 ## 🛠️ Technology Stack
 
-* **Frontend SPA**: React (JavaScript) + Vite + Custom HSL design tokens, Glassmorphism elements, and fully responsive layouts.
-* **Backend API**: Python + FastAPI (high-performance ASGI web framework) with Pydantic request body validation, dynamic CORS handling, and automatic interactive Swagger API documentation.
-* **ORM & Database**: PostgreSQL 15 + SQLAlchemy with robust cascading relationship links and safety check constraints.
-* **Docker & Orchestration**: Docker, Docker Compose, Nginx (Stage 2 production container for serving static SPA files).
+| Layer | Technology |
+|---|---|
+| **Frontend** | React 18, Vite 5, Lucide Icons, Vanilla CSS with custom design tokens |
+| **Backend** | Python 3.11, FastAPI, Pydantic v2, Uvicorn (ASGI) |
+| **Database** | PostgreSQL 15, SQLAlchemy ORM |
+| **Containerization** | Docker, Docker Compose, Nginx |
+| **Deployment** | Vercel (Frontend), Render (Backend + PostgreSQL) |
 
 ---
 
-## 📂 Project Architecture & Directory Layout
+## ✨ Key Features
 
-```text
+### Product Catalog
+- Full CRUD operations (Create, Read, Update, Delete)
+- Unique SKU enforcement with automatic uppercase conversion
+- Non-negative price and stock quantity constraints at the database level
+- Dynamic product images matched to product name keywords
+- Real-time search and filtering
+
+### Customer Directory
+- Customer registration with strict validation
+- **10-digit phone number** enforcement (input restricted, cannot enter more or less)
+- **`.com` email-only** validation
+- **Duplicate prevention** — cannot register two customers with the same email
+- Cascade deletion — removing a customer cancels all their orders and restores stock
+
+### Order Management
+- Multi-product cart checkout with real-time subtotal calculation
+- Unit price snapshot at time of purchase
+- Automatic stock deduction on order creation
+- Automatic stock restoration on order cancellation
+- Detailed invoice modal with IST (India Standard Time) timestamps
+- Insufficient stock prevention with clear error messages
+
+### Analytics Dashboard
+- Total products, customers, and orders at a glance
+- Color-coded stat cards (Indigo, Amber, Emerald, Red)
+- Low-stock product alerts with quick restock actions
+
+### UX Polish
+- **Bottom-center snackbar notifications** — all success/error/info messages appear as Material Design-style toasts with slide-up animation
+- Informative cloud database wake-up loader during Render cold starts
+- No blinking cursor or accidental text selection on UI elements
+- Product-only search bar linked to the catalog view
+
+---
+
+## 📂 Project Structure
+
+```
 inventory-order-system/
-├── docker-compose.yml        # Multi-service container orchestration
-├── .env.example              # Environment variables template file
-├── .gitignore                # Git ignore tracking rules
-├── README.md                 # Professional system documentation
-├── backend/                  # Fast API service directory
+├── docker-compose.yml              # Multi-service orchestration
+├── .env.example                    # Environment variables template
+├── .gitignore
+├── README.md
+│
+├── backend/
 │   ├── app/
-│   │   ├── __init__.py
-│   │   ├── main.py           # FastAPI server with startup table setups
-│   │   ├── config.py         # Application and Pydantic Settings
-│   │   ├── database.py       # SQLAlchemy engine and session pool setups
-│   │   ├── models.py         # Database ORM models (Product, Customer, Order, OrderItem)
-│   │   ├── schemas.py        # Pydantic validation & response serialization schemas
-│   │   └── crud.py           # CRUD operations and transactional stock logic
-│   ├── Dockerfile            # Production-grade Python slim container
-│   ├── .dockerignore
-│   └── requirements.txt      # Backend Python dependencies
-└── frontend/                 # React Single Page App directory
+│   │   ├── main.py                 # FastAPI app, routes, CORS, startup
+│   │   ├── config.py               # Pydantic settings configuration
+│   │   ├── database.py             # SQLAlchemy engine & session pool
+│   │   ├── models.py               # ORM models (Product, Customer, Order, OrderItem)
+│   │   ├── schemas.py              # Pydantic request/response schemas
+│   │   └── crud.py                 # Business logic & transactional operations
+│   ├── Dockerfile                  # Python slim production container
+│   ├── requirements.txt
+│   └── .dockerignore
+│
+└── frontend/
     ├── src/
-    │   ├── components/       # Reusable components
-    │   │   ├── Dashboard.jsx        # Stat cards and quick dashboard restock
-    │   │   ├── ProductManager.jsx   # Product CRUD with form dialogs
-    │   │   ├── CustomerManager.jsx  # Customer files and registration
-    │   │   ├── OrderManager.jsx     # Order cart billing and detailed invoice modals
-    │   │   ├── Navigation.jsx       # Sidebar adaptive drawer
-    │   │   └── Toast.jsx            # Toast slide-over notification system
-    │   ├── App.jsx           # Main controller handling API fetch actions & toasts
-    │   ├── main.jsx          # React DOM render hook
-    │   └── index.css         # Styling system sheet with dark-theme glassmorphism variables
-    ├── index.html            # Static HTML wrapper containing Google Fonts & SEO tags
-    ├── package.json          # React dependencies (React, Lucide Icons)
-    ├── vite.config.js        # Vite config running dev on port 5173
-    ├── nginx.conf            # Custom Nginx conf with React SPA fallback routing
-    ├── Dockerfile            # Multi-stage optimized builder serving built assets with Nginx
+    │   ├── components/
+    │   │   ├── Dashboard.jsx       # KPI stat cards & low-stock alerts
+    │   │   ├── ProductManager.jsx  # Product CRUD with image matching
+    │   │   ├── CustomerManager.jsx # Customer registration & validation
+    │   │   ├── OrderManager.jsx    # Cart checkout & invoice viewer
+    │   │   ├── Navigation.jsx      # Top navigation bar & search
+    │   │   └── Toast.jsx           # Snackbar notification system
+    │   ├── App.jsx                 # Root component, API handlers, routing
+    │   ├── main.jsx                # React DOM entry point
+    │   └── index.css               # Complete design system & styles
+    ├── index.html                  # HTML shell with SEO meta tags
+    ├── package.json
+    ├── vite.config.js
+    ├── vercel.json                 # Vercel SPA routing rewrites
+    ├── nginx.conf                  # Nginx config for Docker container
+    ├── Dockerfile                  # Multi-stage build (Node → Nginx)
     └── .dockerignore
 ```
 
 ---
 
-## 💻 Local Setup & Development Guide
+## 🔌 API Endpoints
 
-Follow these simple steps to run the complete containerized stack on your local machine:
+All endpoints are prefixed with `/api` and documented interactively at [`/docs`](https://inventory-backend-pic1.onrender.com/docs).
+
+### Products
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/api/products` | List all products |
+| `GET` | `/api/products/{id}` | Get product by ID |
+| `POST` | `/api/products` | Create a new product |
+| `PUT` | `/api/products/{id}` | Update a product |
+| `DELETE` | `/api/products/{id}` | Delete a product |
+
+### Customers
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/api/customers` | List all customers |
+| `GET` | `/api/customers/{id}` | Get customer by ID |
+| `POST` | `/api/customers` | Register a new customer |
+| `DELETE` | `/api/customers/{id}` | Delete customer (cascades to orders) |
+
+### Orders
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/api/orders` | List all orders |
+| `GET` | `/api/orders/{id}` | Get order by ID |
+| `POST` | `/api/orders` | Create a new order (checkout) |
+| `DELETE` | `/api/orders/{id}` | Cancel order (restores stock) |
+
+### Dashboard
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/api/dashboard` | Aggregated KPI statistics |
+
+---
+
+## 💻 Local Development Setup
 
 ### Prerequisites
-* [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running.
 
-### Spin up the Application Stack
-1. Clone or download this project folder.
-2. Open your terminal in the `inventory-order-system` root folder.
-3. Run the following Docker Compose command to orchestrate the PostgreSQL db, FastAPI backend, and React frontend:
-   ```bash
-   docker-compose up --build
-   ```
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running
 
-4. Once the setup completes, the following services will be active:
-   * **React Frontend**: Access at [http://localhost:3000](http://localhost:3000) (mapped on port 3000).
-   * **FastAPI Backend REST API**: Access at [http://localhost:8000](http://localhost:8000).
-   * **Interactive Swagger UI Documentation**: Review and test endpoints directly at [http://localhost:8000/docs](http://localhost:8000/docs).
-   * **PostgreSQL Database**: Port `5432` exposed locally for manual verification.
+### Quick Start
 
----
+```bash
+# 1. Clone the repository
+git clone https://github.com/akhilkaushik024/Stratex-Inventory-System.git
+cd Stratex-Inventory-System
 
-## 📤 Production Deployment & Submission Steps
+# 2. Start all services
+docker-compose up --build
+```
 
-This section details how to fulfill the exact submission requirements using the selected platforms.
+### Access Points
 
-### Step 1: Initialize Git and Push to GitHub
-1. Create a **new empty repository** on your GitHub account (do not initialize with README).
-2. Run the following terminal commands in the project root (`inventory-order-system/`):
-   ```bash
-   git init
-   git add .
-   git commit -m "feat: initial commit of production ready inventory & order management system"
-   git branch -M main
-   git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
-   git push -u origin main
-   ```
-
----
-
-### Step 2: Publish Docker Hub Image (Backend)
-1. Log in to [Docker Hub](https://hub.docker.com/) in your local shell:
-   ```bash
-   docker login
-   ```
-2. Build the backend image, replacing `YOUR_DOCKERHUB_USERNAME` with your real username:
-   ```bash
-   docker build -t YOUR_DOCKERHUB_USERNAME/inventory-backend:latest ./backend
-   ```
-3. Push the image directly to Docker Hub:
-   ```bash
-   docker push YOUR_DOCKERHUB_USERNAME/inventory-backend:latest
-   ```
-
----
-
-### Step 3: Deploy Backend & Database on Render
-Render allows you to host Python APIs and PostgreSQL databases for free.
-
-#### 1. Create a Managed PostgreSQL Database
-1. Go to the [Render Dashboard](https://dashboard.render.com/) and click **New > PostgreSQL**.
-2. Set the database name to `inventory_db` and select the **Free** tier.
-3. Once created, copy the **Internal Database URL** or **External Database URL** (e.g., `postgresql://postgres:user@host.oregon-postgres.render.com/inventory_db`).
-
-#### 2. Create the Backend Web Service
-1. Click **New > Web Service**.
-2. Select your pushed GitHub repository.
-3. Name your service `inventory-backend`.
-4. Configure the environment fields:
-   * **Runtime**: `Python` (or `Docker` since we have a Dockerfile! Let's choose **Docker** which is the most reliable, handles all system libraries out of the box, and directly uses our custom Dockerfile!).
-   * **Branch**: `main`
-   * **Plan**: `Free`
-5. Click **Advanced** and add the following Environment Variables:
-   * `DATABASE_URL`: *Paste the external PostgreSQL connection URL copied above.*
-6. Click **Deploy Web Service**. Render will build the Docker container and output your live backend URL (e.g., `https://inventory-backend-xxxx.onrender.com`).
-
----
-
-### Step 4: Deploy Frontend on Vercel
-Vercel is the ultimate hosting platform for static and React applications.
-
-1. Go to the [Vercel Dashboard](https://vercel.com/) and click **Add New > Project**.
-2. Import your GitHub repository.
-3. In the project setup wizard, edit the folder scopes:
-   * **Root Directory**: Select `frontend` (crucial so Vercel builds the React app rather than the root directory).
-   * **Framework Preset**: `Vite` (automatically detected).
-   * **Build Command**: `npm run build`
-   * **Output Directory**: `dist`
-4. Expand **Environment Variables** and add:
-   * `VITE_API_URL`: *Paste your deployed Render backend API URL (e.g., `https://inventory-backend-xxxx.onrender.com`).*
-5. Click **Deploy**. Vercel will build and assign you a live production URL (e.g., `https://inventory-frontend-xxxx.vercel.app`).
-
----
-
-## 📝 Final Deliverables Submission Format
-
-Below is the completed deliverable metadata sheet for your submission:
-
-| Deliverable Requirement | Submission Details |
+| Service | URL |
 |---|---|
-| **GitHub Repository Link** | `https://github.com/akhilkaushik024/Stratex-Inventory-System` |
-| **Docker Hub Backend Image** | `https://hub.docker.com/r/akhilkaushik/inventory-backend` |
-| **Live Frontend URL (Vercel)** | `https://stratex-inventory-system.vercel.app` |
-| **Live Backend API URL (Render)** | `https://inventory-backend-pic1.onrender.com` |
+| React Frontend | [http://localhost:3000](http://localhost:3000) |
+| FastAPI Backend | [http://localhost:8000](http://localhost:8000) |
+| Swagger API Docs | [http://localhost:8000/docs](http://localhost:8000/docs) |
+| ReDoc API Docs | [http://localhost:8000/redoc](http://localhost:8000/redoc) |
+| PostgreSQL | `localhost:5432` |
+
+### Environment Variables
+
+Copy `.env.example` and configure as needed:
+
+| Variable | Description | Default |
+|---|---|---|
+| `DATABASE_URL` | PostgreSQL connection string | `postgresql://postgres:postgres_secure_pass@db:5432/inventory_db` |
+| `VITE_API_URL` | Backend API base URL for frontend | `http://localhost:8000` |
 
 ---
 
-## 🔒 Safety, Business Logic & API Documentation
+## 🚀 Production Deployment
 
-### Dynamic Visual Validation
-* Validation errors are presented instantly in the React client via animated toast notifications (e.g., invalid phone format, negative quantities, SKU collisions, and out-of-stock checkouts).
-* Product SKU forms convert text uppercase automatically to enforce global scanning standards.
-* Cascade-deletions on customers remove related orders and automatically restore stocks on hand.
+### Backend & Database → Render
+
+1. **Create PostgreSQL Database**: Render Dashboard → New → PostgreSQL → Free tier
+2. **Create Web Service**: Render Dashboard → New → Web Service → Connect GitHub repo
+   - **Root Directory**: `backend`
+   - **Runtime**: Docker
+   - **Environment Variable**: `DATABASE_URL` = *(PostgreSQL URL from step 1)*
+
+### Frontend → Vercel
+
+1. **Import Project**: Vercel Dashboard → Add New → Project → Import GitHub repo
+2. **Configure**:
+   - **Root Directory**: `frontend`
+   - **Framework Preset**: Vite
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `dist`
+   - **Environment Variable**: `VITE_API_URL` = *(Render backend URL)*
+
+### Docker Hub Image
+
+```bash
+docker login
+docker build -t akhilkaushik/inventory-backend:latest ./backend
+docker push akhilkaushik/inventory-backend:latest
+```
+
+---
+
+## 🔒 Data Integrity & Business Logic
+
+- **Stock Safety**: Database-level `CHECK` constraints ensure stock quantities and prices never go negative
+- **Transactional Orders**: Order creation atomically deducts stock; failures trigger full rollback
+- **Cascade Deletions**: Deleting a customer removes all associated orders and restores product stock
+- **Unique Constraints**: Product SKUs and customer emails are enforced unique at the database level
+- **Input Validation**: Pydantic schemas validate all request bodies; frontend enforces format rules before API calls
+
+---
+
+## 👤 Author
+
+**Akhil Kaushik** — [GitHub](https://github.com/akhilkaushik024)
