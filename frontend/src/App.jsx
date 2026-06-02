@@ -285,44 +285,77 @@ export default function App() {
           }} />
         )}
 
-        {/* Dynamic Route Switching */}
-        {activeTab === 'dashboard' && (
-          <Dashboard
-            stats={stats}
-            onRestock={handleRestockProduct}
-            loading={loading}
-            refreshStats={loadAllData}
-          />
-        )}
+        {/* Dynamic Route Switching / Initial Database Wakeup Loader */}
+        {loading && products.length === 0 && customers.length === 0 && orders.length === 0 ? (
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: '60vh',
+            textAlign: 'center',
+            padding: '2rem',
+            color: 'var(--text-secondary)'
+          }}>
+            <div style={{
+              width: '44px',
+              height: '44px',
+              border: '3px solid var(--border-color)',
+              borderTopColor: 'var(--accent-primary)',
+              borderRadius: '50%',
+              animation: 'spin 0.8s linear infinite',
+              marginBottom: '1.5rem'
+            }} />
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.6rem' }}>
+              Waking Up Cloud Database
+            </h3>
+            <p style={{ fontSize: '0.92rem', maxWidth: '440px', lineHeight: 1.5, opacity: 0.8 }}>
+              Our backend API is hosted on Render's free tier. After a brief period of inactivity, the server spins down. 
+              <strong> Waking it up takes about 30–40 seconds</strong>. Once fully loaded, all actions will be near-instant. 
+              Thank you for waiting!
+            </p>
+          </div>
+        ) : (
+          <>
+            {activeTab === 'dashboard' && (
+              <Dashboard
+                stats={stats}
+                onRestock={handleRestockProduct}
+                loading={loading}
+                refreshStats={loadAllData}
+              />
+            )}
 
-        {activeTab === 'products' && (
-          <ProductManager
-            products={products}
-            onCreate={handleCreateProduct}
-            onUpdate={handleUpdateProduct}
-            onDelete={handleDeleteProduct}
-            searchTerm={globalSearch}
-          />
-        )}
+            {activeTab === 'products' && (
+              <ProductManager
+                products={products}
+                onCreate={handleCreateProduct}
+                onUpdate={handleUpdateProduct}
+                onDelete={handleDeleteProduct}
+                searchTerm={globalSearch}
+              />
+            )}
 
-        {activeTab === 'customers' && (
-          <CustomerManager
-            customers={customers}
-            onCreate={handleCreateCustomer}
-            onDelete={handleDeleteCustomer}
-            searchTerm={globalSearch}
-          />
-        )}
+            {activeTab === 'customers' && (
+              <CustomerManager
+                customers={customers}
+                onCreate={handleCreateCustomer}
+                onDelete={handleDeleteCustomer}
+                searchTerm={globalSearch}
+              />
+            )}
 
-        {activeTab === 'orders' && (
-          <OrderManager
-            orders={orders}
-            customers={customers}
-            products={products}
-            onCreate={handleCreateOrder}
-            onDelete={handleDeleteOrder}
-            searchTerm={globalSearch}
-          />
+            {activeTab === 'orders' && (
+              <OrderManager
+                orders={orders}
+                customers={customers}
+                products={products}
+                onCreate={handleCreateOrder}
+                onDelete={handleDeleteOrder}
+                searchTerm={globalSearch}
+              />
+            )}
+          </>
         )}
       </main>
 
