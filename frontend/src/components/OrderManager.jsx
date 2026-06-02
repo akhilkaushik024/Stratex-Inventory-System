@@ -1,6 +1,33 @@
 import React, { useState } from 'react';
 import { Plus, Trash2, Search, X, ShoppingCart, Calendar, User, FileText, ArrowRight } from 'lucide-react';
 
+// Help parse timezone-naive UTC ISO strings and format them accurately in India Standard Time (IST)
+const formatOrderDateTime = (dateString) => {
+  if (!dateString) return '';
+  const cleanString = dateString.endsWith('Z') || dateString.includes('+') ? dateString : `${dateString}Z`;
+  return new Date(cleanString).toLocaleString('en-IN', {
+    timeZone: 'Asia/Kolkata',
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true
+  });
+};
+
+const formatOrderDateOnly = (dateString) => {
+  if (!dateString) return '';
+  const cleanString = dateString.endsWith('Z') || dateString.includes('+') ? dateString : `${dateString}Z`;
+  return new Date(cleanString).toLocaleDateString('en-IN', {
+    timeZone: 'Asia/Kolkata',
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  });
+};
+
 export default function OrderManager({ orders, customers, products, onCreate, onDelete, searchTerm }) {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -149,7 +176,7 @@ export default function OrderManager({ orders, customers, products, onCreate, on
                     <td>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-secondary)' }}>
                         <Calendar size={14} />
-                        {new Date(order.created_at).toLocaleDateString()}
+                        {formatOrderDateOnly(order.created_at)}
                       </div>
                     </td>
                     <td style={{ fontWeight: 800, color: 'var(--accent-success)' }}>
@@ -221,7 +248,7 @@ export default function OrderManager({ orders, customers, products, onCreate, on
                 </div>
                 <div style={{ textAlign: 'right' }}>
                   <h4 style={{ color: 'var(--text-primary)', marginBottom: '0.5rem', fontSize: '0.85rem', textTransform: 'uppercase' }}>Date Issued:</h4>
-                  <p style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{new Date(selectedOrder.created_at).toLocaleString()}</p>
+                  <p style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{formatOrderDateTime(selectedOrder.created_at)}</p>
                 </div>
               </div>
 
