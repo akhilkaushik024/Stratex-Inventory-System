@@ -4,8 +4,25 @@ import { Plus, Trash2, Search, X, ShoppingCart, Calendar, User, FileText, ArrowR
 // Help parse timezone-naive UTC ISO strings and format them accurately in India Standard Time (IST)
 const formatOrderDateTime = (dateString) => {
   if (!dateString) return '';
-  const cleanString = dateString.endsWith('Z') || dateString.includes('+') ? dateString : `${dateString}Z`;
-  return new Date(cleanString).toLocaleString('en-IN', {
+  
+  // Extract date components assuming they are saved as UTC from the backend
+  const match = dateString.match(/^(\d{4})-(\d{2})-(\d{2})[T\s](\d{2}):(\d{2}):(\d{2})/);
+  let date;
+  if (match) {
+    const [_, year, month, day, hour, minute, second] = match;
+    date = new Date(Date.UTC(
+      parseInt(year),
+      parseInt(month) - 1,
+      parseInt(day),
+      parseInt(hour),
+      parseInt(minute),
+      parseInt(second)
+    ));
+  } else {
+    date = new Date(dateString);
+  }
+
+  return date.toLocaleString('en-IN', {
     timeZone: 'Asia/Kolkata',
     day: '2-digit',
     month: '2-digit',
@@ -19,8 +36,18 @@ const formatOrderDateTime = (dateString) => {
 
 const formatOrderDateOnly = (dateString) => {
   if (!dateString) return '';
-  const cleanString = dateString.endsWith('Z') || dateString.includes('+') ? dateString : `${dateString}Z`;
-  return new Date(cleanString).toLocaleDateString('en-IN', {
+  
+  const match = dateString.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  let date;
+  if (match) {
+    const [_, year, month, day] = match;
+    // Default to noon UTC to avoid date shifts when converting timezone
+    date = new Date(Date.UTC(parseInt(year), parseInt(month) - 1, parseInt(day), 12, 0, 0));
+  } else {
+    date = new Date(dateString);
+  }
+
+  return date.toLocaleDateString('en-IN', {
     timeZone: 'Asia/Kolkata',
     day: '2-digit',
     month: '2-digit',
